@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yes or No</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f9f9f9;
+            font-family: Arial, sans-serif;
+            flex-direction: column;
+        }
+        #questionContainer {
+            text-align: center;
+            position: relative;
+            width: 300px;
+            height: 200px;
+            border: 2px solid #333;
+            padding: 20px;
+            background-color: white;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+        }
+        #yesBtn {
+            background-color: green;
+            color: white;
+        }
+        #noBtn {
+            background-color: red;
+            color: white;
+            position: absolute;
+        }
+        #resultContainer {
+            display: none;
+            font-size: 20px;
+            text-align: center;
+        }
+        #resultGif {
+            width: 200px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="questionContainer">
+        <h2>Do you like this game?</h2>
+        <button id="yesBtn">Yes</button>
+        <button id="noBtn">No</button>
+    </div>
+
+    <div id="resultContainer">
+        ❤️ I knew it! ❤️  
+        <br>
+        <img id="resultGif" src="" alt="Reaction GIF">
+    </div>
+
+    <script>
+        const noBtn = document.getElementById("noBtn");
+        const yesBtn = document.getElementById("yesBtn");
+        const resultContainer = document.getElementById("resultContainer");
+        const questionContainer = document.getElementById("questionContainer");
+        const resultGif = document.getElementById("resultGif");
+
+        const gifUrl = "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbTJua25wNnhoZWt2MWg4MW0wbmRocGowdTU0ZTI1bDg1aTI1bXVzayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/PZqWOOE2QyeZi/giphy.gif"; // Replace with your GIF URL
+
+        let moveCount = 0;
+        const maxMoves = 60; // Limit No button movement
+
+        noBtn.addEventListener("mouseover", () => {
+            if (moveCount < maxMoves) {
+                const newX = Math.floor(Math.random() * (questionContainer.offsetWidth - noBtn.offsetWidth));
+                const newY = Math.floor(Math.random() * (questionContainer.offsetHeight - noBtn.offsetHeight));
+                noBtn.style.left = `${newX}px`;
+                noBtn.style.top = `${newY}px`;
+                moveCount++;
+            }
+        });
+
+        yesBtn.addEventListener("click", () => {
+            setTimeout(() => {
+                resultContainer.style.display = "block";
+                resultGif.src = gifUrl;
+                questionContainer.style.display = "none"; // Hide everything else
+            }, 1000);
+        });
+    </script>
+
+</body>
+</html>
